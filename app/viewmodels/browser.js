@@ -13,8 +13,6 @@
     var Browser = function() {
         this.parent = appShell;
         this.url = '/';
-        this.username = username;
-        this.password = password;
         this.entity = ko.observable(new Entity());
     };
     Browser.prototype.activate = function(url) {
@@ -22,12 +20,7 @@
         return this.query();
     };
     Browser.prototype.attached = function(view, parent) {
-        var self = this;
-        self.$view = view;
-        $('a', view).on('click', function(e) {
-            e.preventDefault();
-            self.visitURL($(e.target).attr('href'));
-        });
+        this.$view = view;
     };
     Browser.prototype.query = function() {
         var self = this;
@@ -35,9 +28,9 @@
             url: this.url,
             dataType: 'json'
         };
-        if (this.username && this.password) {
-            options.username = this.username;
-            options.password = this.password;
+        if (username && password) {
+            options.username = username;
+            options.password = password;
             options.xhrFields = { withCredentials: true };
         }
         var deferred = $.Deferred();
@@ -50,21 +43,27 @@
                     if (!creds) return;
                     username = creds.username;
                     password = creds.password;
-                    self.visitURL(self.url);
+                    self.query();
                 });
             } else {
                 app.showMessage("Failed to query/parse the Siren API. Check to ensure the Siren URL points to a valid API.", "Network Error");
             }
         }).always(function() {
-            deferred.resolve(true);   
+            deferred.resolve(true);
         });
         return deferred;
     };
     Browser.prototype.visitURL = function(url) {
-        appShell.router.navigate('#browser/' + encodeURIComponent(url));
+        appShell.router.navigate(this.getURL(url));
+    };
+    Browser.prototype.getURL = function(url) {
+        return '#browser/' + encodeURIComponent(url);
     };
     Browser.prototype.submit = function(form) {
         this.visitURL($('#browser-page-form-url', this.$view).val());
+    };
+    Browser.prototype.actionForm = function(action) {
+
     };
     return Browser;
 });

@@ -3,6 +3,9 @@ define(['plugins/dialog'], function(dialog) {
     AuthModal.prototype.attached = function(view, parent) {
         this.$view = view;
     };
+    AuthModal.prototype.onShown = function() {
+        $('input', this.$view).first().focus();
+    };
     AuthModal.prototype.submit = function(form) {
         var username = $('#username-auth-input', this.$view).val();
         var password = $('#password-auth-input', this.$view).val();
