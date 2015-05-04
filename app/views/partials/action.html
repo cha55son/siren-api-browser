@@ -1,0 +1,16 @@
+<div class="entity-action-partial">
+    <ul>
+        <li>name: <!-- ko text: name --><!-- /ko --></li>
+        <li>class: <!-- ko text: classes.join(', ') --><!-- /ko --></li>
+        <li>method: <!-- ko text: method --><!-- /ko --></li>
+        <li>href: <!-- ko text: href --><!-- /ko --></li>
+        <li>title: <!-- ko text: title --><!-- /ko --></li>
+        <li>type: <!-- ko text: type --><!-- /ko --></li>
+        <li>
+            Fields:<br>
+            <ul data-bind="foreach: fields">
+                <li data-bind="compose: 'partials/field.html'"></li>
+            </ul>
+        </li>
+    </ul>
+</div>

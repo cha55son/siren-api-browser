@@ -1,0 +1,21 @@
+<div class="modal-dialog url-auth-modal">
+    <form class="modal-content" data-bind="submit: submit" id="auth-modal-form">
+        <div class="modal-header">
+            <button type="button" class="close" aria-hidden="true" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Authentication required to continue</h4>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="usename-auth-input">Username</label>
+                <input type="text" class="form-control" id="username-auth-input" placeholder="Enter username">
+            </div>
+            <div class="form-group" style="margin-bottom: 0">
+                <label for="password-auth-input">Password</label>
+                <input type="password" class="form-control" id="password-auth-input" placeholder="Password">
+            </div>
+        </div>
+        <div class="modal-footer" style="text-align: center; margin-top: 0;">
+           <button type="submit" form="auth-modal-form" class="btn btn-primary btn-close" style="width: 100%">Login</button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Siren API Browser</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        
+        <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css" />
+        <link rel="stylesheet" href="lib/durandal/css/durandal.css" />
+        <link rel="stylesheet" href="css/app.css" />
+        
+        <script type="text/javascript">
+            if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
+                var msViewportStyle = document.createElement("style");
+                var mq = "@@-ms-viewport{width:auto!important}";
+                msViewportStyle.appendChild(document.createTextNode(mq));
+                document.getElementsByTagName("head")[0].appendChild(msViewportStyle);
+            }
+        </script>
+    </head>
+    <body>
+        <div id="applicationHost"></div>
+        <script src="lib/require/require.js" data-main="app/main"></script>
+    </body>
+</html>
