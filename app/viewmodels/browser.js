@@ -12,29 +12,35 @@
 
     var Browser = function() {
         this.parent = appShell;
-        this.url = '/';
         this.entity = ko.observable(new Entity());
+        this.wasComposed = false;
     };
     Browser.prototype.activate = function(url) {
-        this.url = url || this.url;
+        this.parent.url(url || this.parent.url());
         return this.query();
     };
     Browser.prototype.attached = function(view, parent) {
         this.$view = view;
     };
-    Browser.prototype.query = function() {
+    Browser.prototype.compositionComplete = function() {
+        this.parent.loading(false);
+        this.wasComposed = true;
+    };
+    Browser.prototype.query = function(options) {
         var self = this;
-        var options = {
-            url: this.url,
-            dataType: 'json'
-        };
+        this.parent.loading(true);
+        var props = $.extend({
+            url: this.parent.url(),
+            dataType: 'json',
+            method: 'GET'
+        }, options);
         if (username && password) {
-            options.username = username;
-            options.password = password;
-            options.xhrFields = { withCredentials: true };
+            props.username = username;
+            props.password = password;
+            props.xhrFields = { withCredentials: true };
         }
         var deferred = $.Deferred();
-        $.ajax(options).then(function(data, status) {
+        $.ajax(props).then(function(data, status) {
             self.entity(new Entity(data));
         }).fail(function(data) {
             // If the endpoint requires authentication prompt for it.
@@ -46,24 +52,32 @@
                     self.query();
                 });
             } else {
-                app.showMessage("Failed to query/parse the Siren API. Check to ensure the Siren URL points to a valid API.", "Network Error");
+                app.showBootstrapDialog('viewmodels/partials/error-modal', { 
+                    title: 'An error occurred',
+                    message: 'Failed to query/parse the Siren API. Check the response below.',
+                    error: data.responseText
+                });
             }
         }).always(function() {
             deferred.resolve(true);
+            if (self.wasComposed)
+                self.parent.loading(false);
         });
         return deferred;
     };
-    Browser.prototype.visitURL = function(url) {
-        appShell.router.navigate(this.getURL(url));
-    };
-    Browser.prototype.getURL = function(url) {
-        return '#browser/' + encodeURIComponent(url);
-    };
-    Browser.prototype.submit = function(form) {
-        this.visitURL($('#browser-page-form-url', this.$view).val());
-    };
     Browser.prototype.actionForm = function(action) {
-
+        var self = this;
+        app.showBootstrapDialog('viewmodels/partials/action-modal', { action: action }).then(function(params) {
+            if (!params) return;
+            self.query({ method: action.method, data: params });
+        });
+    };
+    Browser.prototype.showPayload = function(obj) {
+        if (typeof obj.payload !== 'object') return;
+        app.showBootstrapDialog('viewmodels/partials/payload-modal', { 
+            title: obj.className,
+            payload: obj.payload 
+        });
     };
     return Browser;
 });

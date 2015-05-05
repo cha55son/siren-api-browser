@@ -10,6 +10,7 @@ define([
         this.parseActions();
         this.parseLinks();
         this.id = counter++;
+        this.className = 'Entity';
     };
     // Properties specific to an entity
     Entity.prototype.parseProperties = function() {

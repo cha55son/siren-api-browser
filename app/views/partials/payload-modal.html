@@ -1,0 +1,14 @@
+<div class="modal-dialog payload-modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" aria-hidden="true" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title" data-bind="text: options.title"></h4>
+        </div>
+        <div class="modal-body">
+            <pre data-bind="text: JSON.stringify(options.payload, null, 2)"></pre>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+</div>

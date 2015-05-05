@@ -2,6 +2,7 @@ define(function() {
     var Link = function(data) {
         this.payload = data || { };
         this.parseProperties();
+        this.className = 'Link';
     };
     Link.prototype.parseProperties = function() {
         this.rels = this.payload.rel || [];

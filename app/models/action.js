@@ -3,6 +3,7 @@ define(['models/field'], function(Field) {
         this.payload = data || { };
         this.parseProperties();
         this.parseFields();
+        this.className = 'Action';
     };
     Action.prototype.parseProperties = function() {
         this.name = this.payload.name || '';

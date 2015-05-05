@@ -1,3 +1,24 @@
 ﻿<div class="shell-page">
     <div class="page-host" data-bind="router: { transition:'entrance' }"></div>
+    <div data-bind="visible: loading" class="loader-overlay">
+        <div class="loader-inner line-scale-pulse-out-rapid">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <form class="form-horizontal" id="shell-form" data-bind="submit: submit">
+        <div class="container-fluid">
+            <div class="form-group">
+                <label for="shell-form-url" class="hidden-xs col-sm-2 control-label">
+                    <a href="https://github.com/kevinswiber/siren" target="_blank">Siren API</a> URL
+                </label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="shell-form-url" data-bind="value: url">
+                </div>
+            </div>
+        </div>
+    </form>
 </div>

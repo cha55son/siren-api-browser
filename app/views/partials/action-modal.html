@@ -1,0 +1,30 @@
+<div class="modal-dialog action-modal">
+    <form class="modal-content" data-bind="submit: submit, with: action" id="action-modal-form">
+        <div class="modal-header">
+            <button type="button" class="close" aria-hidden="true" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Action: <span data-bind="text: name"></span></h4>
+        </div>
+        <div class="modal-body">
+            <div class="well" data-bind="visible: title, text: title"></div>
+            <div data-bind="foreach: fields">
+                <!-- ko if: type == 'checkbox' -->
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" data-bind="attr: { name: name }"> <span data-bind="text: name"></span>
+                        </label>
+                    </div>
+                <!-- /ko -->
+                <!-- ko if: ['checkbox'].indexOf(type) === -1 -->
+                    <div class="form-group">
+                        <label data-bind="text: name"></label>
+                        <input class="form-control" data-bind="attr: { type: type, name: name }, value: value">
+                    </div>
+                <!-- /ko -->
+            </div>
+        </div>
+        <div class="modal-footer" style="margin-top: 0;">
+           <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+           <button type="submit" form="action-modal-form" class="btn btn-primary" data-bind="text: method.toUpperCase()"></button>
+        </div>
+    </form>
+</div>
