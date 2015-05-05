@@ -43,8 +43,8 @@
         $.ajax(props).then(function(data, status) {
             self.entity(new Entity(data));
             if (self.entity().getSelfHref() !== self.parent.url()) {
-                var url = self.parent.getURL(self.entity().getSelfHref());
-                self.parent.router.navigate(url, { trigger: false });
+                var url = self.entity().getSelfHref();
+                self.parent.router.navigate(self.parent.getURL(url), false);
                 self.parent.url(url);
             }
         }).fail(function(data) {
