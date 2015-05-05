@@ -44,7 +44,7 @@
             self.entity(new Entity(data));
             if (self.entity().getSelfHref() !== self.parent.url()) {
                 var url = self.entity().getSelfHref();
-                self.parent.router.navigate(self.parent.getURL(url), false);
+                self.parent.router.navigate(self.parent.getURL(url), { replace: true, trigger: false });
                 self.parent.url(url);
             }
         }).fail(function(data) {
