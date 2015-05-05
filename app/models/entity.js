@@ -48,5 +48,15 @@ define([
     Entity.prototype.isSubEntity = function() {
         return this.href.length > 0;
     };
+    Entity.prototype.getSelfHref = function() {
+        var link = false;
+        for (var i in this.links) {
+            if (this.links[i].rels.indexOf('self') !== -1) {
+                link = this.links[i].href;
+                break;
+            }
+        }
+        return link;
+    };
     return Entity;
 });

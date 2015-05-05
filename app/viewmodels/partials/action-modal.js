@@ -14,7 +14,10 @@ define(['plugins/dialog', 'models/action'], function(dialog, Action) {
         var params = { };
         $('input[name]', $form).each(function() {
             var $this = $(this);
-            params[$this.attr('name')] = $this.val() == '' ? undefined : $this.val();
+            if ($this.attr('type').toLowerCase() === 'checkbox')
+                params[$this.attr('name')] = $this.prop('checked');
+            else
+                params[$this.attr('name')] = $this.val() == '' ? undefined : $this.val();
         });
         dialog.close(this, params);
     };

@@ -42,6 +42,11 @@
         var deferred = $.Deferred();
         $.ajax(props).then(function(data, status) {
             self.entity(new Entity(data));
+            if (self.entity().getSelfHref() !== self.parent.url()) {
+                var url = self.parent.getURL(self.entity().getSelfHref());
+                self.parent.router.navigate(url, { trigger: false });
+                self.parent.url(url);
+            }
         }).fail(function(data) {
             // If the endpoint requires authentication prompt for it.
             if (data.status == 401 && data.statusText.toLowerCase().match(/unauthorized/i)) {
@@ -69,7 +74,11 @@
         var self = this;
         app.showBootstrapDialog('viewmodels/partials/action-modal', { action: action }).then(function(params) {
             if (!params) return;
-            self.query({ method: action.method, data: params });
+            self.query({ 
+                url: action.href, 
+                method: action.method, 
+                data: params 
+            });
         });
     };
     Browser.prototype.showPayload = function(obj) {
