@@ -18,7 +18,7 @@
 
 define(['durandal/system', 'durandal/app', 'durandal/viewLocator', 'bootstrap'],  function (system, app, viewLocator, _bs) {
     //>>excludeStart("build", true);
-    system.debug(true);
+    // system.debug(true);
     //>>excludeEnd("build");
 
     app.title = 'Siren API Browser';
