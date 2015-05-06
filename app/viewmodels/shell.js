@@ -14,7 +14,7 @@
     Shell.prototype.activate = function() {
         this.loading(true);
         this.router.map([
-            { route: ['', 'browser/:url'], title: 'Siren API Browser', moduleId: 'viewmodels/browser' }
+            { route: ['', 'browser/:url'], moduleId: 'viewmodels/browser' }
         ]).buildNavigationModel();
         return router.activate();
     };

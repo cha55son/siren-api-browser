@@ -67,6 +67,7 @@
             deferred.resolve(true);
             if (self.wasComposed)
                 self.parent.loading(false);
+            self.parseURLTitle();
         });
         return deferred;
     };
@@ -87,6 +88,12 @@
             title: obj.className,
             payload: obj.payload 
         });
+    };
+    Browser.prototype.parseURLTitle = function() {
+        var parser = document.createElement('a');
+        parser.href = this.parent.url();
+        var tokens = parser.pathname.split('/');
+        $('title').text(tokens[tokens.length - 1] + ' | ' + app.title);
     };
     return Browser;
 });
