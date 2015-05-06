@@ -13,4 +13,4 @@ Built upon [Durandal](http://durandaljs.com/) this simple client-side Siren brow
 
 This project started at [Hack Tennessee](http://www.hacktennessee.com/).
 
-![Hack Tennessee](http://www.hacktennessee.com/images/img01.png)
+![Hack Tennessee](http://www.hacktennessee.com/images/logo.png)
