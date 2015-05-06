@@ -16,7 +16,10 @@
                     <a href="https://github.com/kevinswiber/siren" target="_blank">Siren API</a> URL
                 </label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="shell-form-url" data-bind="value: url">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="shell-form-url" data-bind="value: url">
+                        <span class="input-group-addon"><span data-bind="text: seconds"></span>s</span>
+                    </div>
                 </div>
             </div>
         </div>

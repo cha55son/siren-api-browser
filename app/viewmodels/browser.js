@@ -40,7 +40,9 @@
             props.xhrFields = { withCredentials: true };
         }
         var deferred = $.Deferred();
+        var t0 = performance.now();
         $.ajax(props).then(function(data, status) {
+            self.parent.seconds((Math.round(performance.now() - t0) / 1000).toFixed(1));
             self.entity(new Entity(data));
             if (self.entity().getSelfHref() !== self.parent.url()) {
                 var url = self.entity().getSelfHref();

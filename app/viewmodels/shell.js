@@ -6,6 +6,7 @@
     var Shell = function() { 
         this.router = router; 
         this.url = ko.observable('/');
+        this.seconds = ko.observable('?');
         this.loading = ko.observable(false);
         this.loading.subscribe(function() {
             $(window).scrollTop(0);
