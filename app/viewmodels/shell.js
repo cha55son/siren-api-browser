@@ -5,7 +5,7 @@
 ], function(router, app, ko) {
     var Shell = function() { 
         this.router = router; 
-        this.url = ko.observable('/');
+        this.url = ko.observable('/api/');
         this.seconds = ko.observable('?');
         this.loading = ko.observable(false);
         this.loading.subscribe(function() {
