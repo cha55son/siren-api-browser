@@ -12,12 +12,14 @@
                         <label>
                             <input type="checkbox" data-bind="attr: { name: name }"> <span data-bind="text: name"></span>
                         </label>
+			<p class="help-block" data-bind="visible: title.length > 0, text: title"></p>
                     </div>
                 <!-- /ko -->
                 <!-- ko if: ['checkbox'].indexOf(type) === -1 -->
                     <div class="form-group">
                         <label data-bind="text: name"></label>
                         <input class="form-control" data-bind="attr: { type: type, name: name }, value: value">
+			<p class="help-block" data-bind="visible: title.length > 0, text: title"></p>
                     </div>
                 <!-- /ko -->
             </div>
