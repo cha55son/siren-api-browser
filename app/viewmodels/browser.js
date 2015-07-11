@@ -31,8 +31,8 @@
         this.parent.loading(true);
         var props = $.extend({
             url: this.parent.url(),
-            dataType: 'json',
-            method: 'GET'
+            method: 'GET',
+			cache: false
         }, options);
         if (username && password) {
             props.username = username;
@@ -43,12 +43,19 @@
         var t0 = performance.now();
         $.ajax(props).then(function(data, status) {
             self.parent.seconds((Math.round(performance.now() - t0) / 1000).toFixed(1));
-            self.entity(new Entity(data));
-            if (self.entity().getSelfHref() !== self.parent.url()) {
-                var url = self.entity().getSelfHref();
-                self.parent.router.navigate(self.parent.getURL(url), { replace: true, trigger: false });
-                self.parent.url(url);
-            }
+			var url = props.url;
+			if (typeof data !== 'object') {
+                app.showBootstrapDialog('viewmodels/partials/error-modal', { 
+                    title: 'An error occurred',
+                    message: 'Failed to query/parse the Siren API. Check the response below.',
+                    error: data
+                });
+			} else {
+				self.entity(new Entity(data));
+                url = self.entity().getSelfHref();
+			}
+			self.parent.router.navigate(self.parent.getURL(url), { replace: true, trigger: false });
+			self.parent.url(url);
         }).fail(function(data) {
             // If the endpoint requires authentication prompt for it.
             if (data.status == 401 && data.statusText.toLowerCase().match(/unauthorized/i)) {
@@ -56,7 +63,7 @@
                     if (!creds) return;
                     username = creds.username;
                     password = creds.password;
-                    self.query();
+                    self.query(props);
                 });
             } else {
                 app.showBootstrapDialog('viewmodels/partials/error-modal', { 
@@ -64,7 +71,7 @@
                     message: 'Failed to query/parse the Siren API. Check the response below.',
                     error: data.responseText
                 });
-            }
+			}
         }).always(function() {
             deferred.resolve(true);
             if (self.wasComposed)
@@ -77,10 +84,15 @@
         var self = this;
         app.showBootstrapDialog('viewmodels/partials/action-modal', { action: action }).then(function(params) {
             if (!params) return;
+			// Account for actions with text/plain and 0 fields.	
+			var data = params;
+			if (typeof params.body === 'string')
+				data = params.body;	
             self.query({ 
                 url: action.href, 
+				contentType: action.type,
                 method: action.method, 
-                data: params 
+                data: data
             });
         });
     };

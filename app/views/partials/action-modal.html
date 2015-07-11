@@ -6,23 +6,31 @@
         </div>
         <div class="modal-body">
             <div class="well" data-bind="visible: title, text: title"></div>
-            <div data-bind="foreach: fields">
-                <!-- ko if: type == 'checkbox' -->
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" data-bind="attr: { name: name }"> <span data-bind="text: name"></span>
-                        </label>
-			<p class="help-block" data-bind="visible: title.length > 0, text: title"></p>
-                    </div>
-                <!-- /ko -->
-                <!-- ko if: ['checkbox'].indexOf(type) === -1 -->
-                    <div class="form-group">
-                        <label data-bind="text: name"></label>
-                        <input class="form-control" data-bind="attr: { type: type, name: name }, value: value">
-			<p class="help-block" data-bind="visible: title.length > 0, text: title"></p>
-                    </div>
-                <!-- /ko -->
-            </div>
+			<!-- ko if: fields.length === 0 && type === 'text/plain' -->
+				<div class="form-group">
+					<label>Body</label>
+					<textarea class="form-control" name="body" rows="3"></textarea>
+				</div>
+			<!-- /ko -->
+			<!-- ko if fields.length > 0 -->
+				<div data-bind="foreach: fields">
+					<!-- ko if: type == 'checkbox' -->
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" data-bind="attr: { name: name }"> <span data-bind="text: name"></span>
+							</label>
+							<p class="help-block" data-bind="visible: title.length > 0, text: title"></p>
+						</div>
+					<!-- /ko -->
+					<!-- ko if: ['checkbox'].indexOf(type) === -1 -->
+						<div class="form-group">
+							<label data-bind="text: name"></label>
+							<input class="form-control" data-bind="attr: { type: type, name: name }, value: value">
+							<p class="help-block" data-bind="visible: title.length > 0, text: title"></p>
+						</div>
+					<!-- /ko -->
+				</div>
+			<!-- /ko -->
         </div>
         <div class="modal-footer" style="margin-top: 0;">
            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
